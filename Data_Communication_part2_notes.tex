@@ -1,0 +1,1067 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemeblackboard}
+\usepackage{graphics}
+
+
+
+\usepackage{beamerthemeblackboard}
+\usepackage{graphics}
+\usepackage{ifsym} %  
+\usepackage{epsdice} % dice
+\usepackage{clock} % 
+\usepackage{microtype}
+\usepackage{skull} %create skull
+\usepackage{cancel} %create diagonal bar (cancel)
+\usepackage{stackrel} %create arc?
+\usepackage{bbding} %create hands and cross
+\usepackage{pifont} %create circled numbers
+\usepackage{lipsum} % Just some sample text
+\usepackage{amsmath,amssymb,amsthm} %math functions like align
+\usepackage{fancybox} %For beautiful boxes
+\usepackage{xspace} % Prints a trailing space in a smart way.
+\usepackage{units}
+\usepackage{geometry} % change paper size
+\usepackage{multicol} % Small sections of multiple columns 
+\usepackage{color}
+
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen2}{rgb}{0, .38, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+ 
+
+
+
+% MY COMMANDS
+\newcommand{\s}{\vspace{0.2cm}} % adds space
+\newcommand{\ns}{\vspace{-0.5cm}}  % subtracts space
+\newcommand{\fig}[2]{
+\begin{center}
+\begin{figure}
+\includegraphics[scale=#1]{figures/#2}
+\end{figure}
+\end{center}
+}
+
+%question block with choices in column
+\newcommand{\qc}[6]{
+\begin{block}{\Large #1 }
+\begin{enumerate}[]
+\item #2
+\item #3
+\item #4
+\item #5
+\item #6
+\end{enumerate} 
+\end{block}
+}
+
+\newcommand{\ans}[2]{\alert<#1>{\textbf<#1>{#2}}  \only<#1>{ \textcolor {Red} \checkmark }} 
+\newcommand{\dquote}[1]{\ding{125} \emph{#1} \ding{126}} %decorative quote
+\newcommand{\true}{\text{\bf T}} %true 
+\newcommand{\false}{\text{\bf F}} %false
+%formula block
+\newcommand{\f}[1]{
+\begin{center}
+\shadowbox{ $ #1 $}
+\end{center}
+}
+
+
+% HANDOUTS
+
+\usepackage{handoutWithNotes}
+
+\pgfpagesuselayout{2 on 1 with notes landscape}[a4paper,border shrink=5mm]
+
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+
+
+ 
+
+\begin{document}
+
+% set handwritten font, necessary packages are loaded in beamerthemeblackboard.sty
+\ECFAugie
+
+\begin{frame}
+
+\begin{center}
+\begin{figure}
+\includegraphics[scale=0.3]{figures/dlsulogo}
+\end{figure}
+\end{center}
+\ns
+
+\title{DATCOMM  \\ \underline{Local Area Network} \\ \underline{Technologies}}
+\author{Engr. Melvin K. Cabatuan, MsE}
+\date{February 2013}
+\institute{De La Salle University}
+\maketitle
+\end{frame}
+
+\begin{frame}
+\frametitle{Objectives}
+\begin{itemize} 
+\Large
+\item <1-> To briefly discuss the technology of dominant wired LANs- Ethernet, and other LAN media.
+\item <2-> Describe Media Access Control (MAC) and Carrier Sense Multiple Access/Collision Detection (CSMA/CD)
+\item <3-> Explain Address Resolution Protocol (ARP) and Bridges.
+\item <4-> Discuss Switched Ethernet and \\ Virtual LAN (VLAN).
+
+\end{itemize}
+\end{frame}
+
+ 
+
+
+\begin{frame}
+\frametitle{Local Area Network}
+\framesubtitle{LAN}
+\begin{itemize} 
+\Large
+\item <1-> A computer network that is designed for a limited geographic area such as a building or a campus. 
+\item <2-> LAN technologies: Ethernet, token ring, token bus, FDDI, and ATM LAN.
+\end{itemize}
+\fig{0.65}{network_lan}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge IEEE Project 802}
+\framesubtitle{IEEE standard for LANs}
+\begin{itemize} 
+\Large
+\item <1-> specify functions of the physical and data link layer of major LAN protocols.
+\item <2-> subdivided the data link layer into two sublayers: logical link control (LLC) and media access control (MAC).
+\end{itemize}
+\fig{0.55}{network_802}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Ethernet} 
+\begin{itemize} 
+\Large
+\item <1-> was created in 1976 at Xerox's Palo Alto Research Center (PARC). 
+\item <2-> de facto standard technology that is used for connecting LANs.
+\item <3-> first implemented by a group called DIX (Digital, Intel, and Xerox). 
+\end{itemize}
+\fig{0.6}{network_etherevolution}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Ethernet (802.3) Frame} 
+\begin{itemize} 
+\Large
+\item <1-> Preamble \\ contains 7 bytes (56 bits) of alternating $0$s and $1$s that alerts the receiving system to the coming frame and enables it to synchronize its input timing.
+\end{itemize}
+\fig{0.55}{network_etherframe}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge Ethernet (802.3) Frame} 
+\begin{itemize} 
+\Large
+\item <1-> Start frame delimiter (SFD) \\ (1 byte: 10101011) signals the beginning of the frame; the last 2 bits are $11$ and alert the receiver that the next field is the destination address.
+\end{itemize}
+\fig{0.55}{network_etherframe}
+\end{frame} 
+ 
+
+\begin{frame}
+\frametitle{\huge Ethernet (802.3) Frame} 
+\begin{itemize} 
+\Large
+\item <1-> Destination address (DA) \\ is 6 bytes and contains the physical address of the destination station/s to receive the packet.
+\item <2-> Source address (SA) \\ is 6 bytes and contains the physical address of the sender of the packet.
+\end{itemize}
+\fig{0.55}{network_etherframe}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge Ethernet (802.3) Frame} 
+\begin{itemize} 
+\Large
+\item <1-> Length or Type \\  
+$\circ$ 802.3: length field to define the number of bytes in the data field or \\
+$\circ$ Ethernet: type field to define the upper-layer protocol using the MAC frame.
+\end{itemize}
+\fig{0.55}{network_etherframe}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge Ethernet (802.3) Frame} 
+\begin{itemize} 
+\Large
+\item <1-> Data \\ $\circ$ carries data encapsulated from the upper-layer protocols; \\ 
+$\circ$ a minimum of 46 and a maximum of 1500 bytes.
+\end{itemize}
+\uncover<2->{
+\fig{0.55}{network_etherframe2}
+}	
+\end{frame} 
+
+
+
+ \frame{\frametitle{\HandRight \: Understand}
+\Large
+What if the upper-layer packet is less than the minimum 46 bytes?
+\begin{itemize}
+\item <2-> Padding is added to make up the difference.
+\end{itemize}
+ }
+
+
+\begin{frame}
+\frametitle{\huge Ethernet (802.3) Frame} 
+\begin{itemize} 
+\Large
+\item <1-> Cyclic Redundancy Check (CRC) \\ verifies that the data that left the source computer did not change at all during the transmission.
+\end{itemize}
+\fig{0.55}{network_etherframe2}
+\end{frame} 
+
+
+
+ \frame{\frametitle{\HandRight \: Understand}
+\Large
+The 802.3 standard defines the maximum length of a frame (without preamble and SFD field) as $1518$ bytes. Give the historical
+reasons for this restriction.
+\begin{itemize}
+\item <2-> Memory was very expensive when Ethernet was designed: a maximum length restriction helped to reduce the size of the buffer.
+\item <3-> It prevents one station from monopolizing the shared medium, blocking other stations that have \\ data to send.
+\end{itemize}
+ }
+
+
+\begin{frame}
+\frametitle{\huge MAC Address} 
+\framesubtitle{also referred to as the data link address or physical address}
+\begin{itemize} 
+\Large
+\item <1-> a 6 bytes (48 bits) physical address applied to the network interface card (NIC) by the manufacturer during production.
+\end{itemize}
+\fig{0.35}{network_adapter}
+\end{frame} 
+
+
+
+\begin{frame}
+\frametitle{\huge MAC Address} 
+\begin{itemize} 
+\Large
+\item <1-> normally written in hexadecimal notation, with a colon between the bytes.
+\end{itemize}
+\fig{0.8}{network_macaddress}
+\begin{itemize} 
+\Large
+\item <2-> Ex. Ethernet MAC address \\
+\qquad   $4$A$:30:10:21:10:1$A 
+\fig{0.5}{network_macaddress2}
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge Source and Destination Addressing Modes} 
+\begin{itemize} 
+\Large
+\item <1-> Source address is always a unicast address - the frame comes from only one station.
+\item <2-> Destination address can be unicast, multicast, or broadcast.
+\end{itemize}
+\fig{0.6}{network_unimulti}
+\end{frame} 
+
+
+
+ \frame{\frametitle{\HandRight \: Exercise}
+\Large
+Define the type of the following destination addresses:
+\begin{itemize}
+\item <2-> $4A:30:10:21:10:1A$
+\item <3-> $47:20:1B:2E:08:EE$
+\item <4-> $FF:FF:FF:FF:FF:FF$ 
+\end{itemize}
+\uncover<5->{
+Solution: Refer to the second hexadecimal digit from the left: \\ 
+\qquad even ==> unicast; \\ 
+\qquad odd ==> multicast; \\ 
+\qquad all F's ==> Broadcast
+}
+}
+
+ 
+\begin{frame}
+\frametitle{\huge Transmission of Addresses} 
+\begin{itemize} 
+\Large
+\item <1-> transmission is left-to-right, byte by byte; however, for each byte, the least significant bit is sent first and the most significant bit is sent last.
+\item <2-> Ex. Show how the address $47:20:1B:2E:08:EE$ is sent out on line.
+\end{itemize}
+\uncover<3->{
+\fig{0.6}{network_addtrans}
+}
+\end{frame} 
+
+
+
+\begin{frame}
+\frametitle{CSMA/CD} 
+\framesubtitle{Carrier Sense Multiple Access with Collision Detection}
+\begin{itemize} 
+\Large
+\item <1-> access method for traditional Ethernet (10-Mbps) that  senses the medium before trying to use it.
+\item <2-> Ethernet stations can be connected together using a physical bus or star topology but its logical topology is always a bus.
+\end{itemize}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge CSMA Collision} 
+\fig{0.6}{network_csma}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{CSMA/CD} 
+\framesubtitle{Carrier Sense Multiple Access with Collision Detection Algorithm}
+\fig{0.55}{network_csmacd}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{CSMA/CD} 
+\framesubtitle{Minimum Frame Size}
+ \begin{itemize} 
+\Large
+\item <1-> a restriction on the frame size is required.
+\item <2-> before sending the last bit of the frame, the sending station must detect a collision and abort.
+\item <3-> thus, transmission time $T_{fr}$ must be at least two times the maximum propagation time $T_p$.
+\end{itemize}
+\end{frame}
+
+
+ \frame{\frametitle{\HandRight \: Exercise}
+\Large
+In the standard Ethernet, if the maximum propagation time is $25.6 \mu s$, what is the minimum size of the frame?
+\begin{itemize}
+\item[] <2->  $T_{fr} = 2 \times T_p = 51.2 \mu s$
+\item[] <3-> $10$ Mbps $\times 51.2 \mu s = 512$ bits or $64$ bytes
+\item <4-> This is the minimum size of the frame for Standard Ethernet.
+\end{itemize}
+ }
+
+
+\begin{frame}
+\frametitle{CSMA/CD} 
+\framesubtitle{Flow Diagram}
+\fig{0.45}{network_csmacd2}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Standard Ethernet}   
+\framesubtitle{Implementation}
+\fig{0.45}{network_ethernet2}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft  \: Reading Assignment}
+\begin{itemize}
+\huge
+\item  <1-> Report about the IEEE 802.3 Standard, in your own words. 
+\item  <1-> Submit through www.turnitin.com.
+ \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\huge Cable Specifications}   
+\fig{0.5}{network_ethernetcable}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Coaxial Cable}   
+\fig{0.55}{network_coax}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Shielded Twisted Pair (STP)}   
+\fig{0.5}{network_twisted}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Unshielded Twisted Pair (UTP)}   
+\fig{0.5}{network_utp2}
+\end{frame}
+
+
+ \frame{\frametitle{\HandRight \: Readings}
+\Large
+It is the standards body that creates the Physical layer specifications for Ethernet.
+\begin{itemize} 
+\item <2->  EIA/TIA (Electronic Industries Association and the newer Telecommunications Industry Association) 
+\item <3-> EIA/TIA specifies that Ethernet use a registered jack (RJ) connector with a 4 5 wiring sequence on unshielded twisted-pair (UTP) cabling (RJ-45). 
+\end{itemize}
+}
+
+
+
+
+\begin{frame}
+\frametitle{\huge UTP Connections (RJ-45)} 
+ \begin{itemize} 
+\Large
+\item <1-> RJ-45 connector is clear so you can see the eight colored wires that connect to the connector's pins. These wires are twisted into four pairs. 
+\item <2-> Four wires (two pairs) carry the voltage and are considered \underline{tip}. The other four wires are grounded and are called \underline{ring}.   
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge UTP Connections (RJ-45)}   
+\framesubtitle{8-pin modular connector}
+\fig{0.5}{network_utp}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Ethernet Cabling} 
+\Large
+Straight-through cable: used to connect
+ \begin{itemize} 
+\item <1-> Host to switch or hub. 
+\item <2-> Router to switch or hub
+\end{itemize}
+\fig{0.6}{network_straight}
+\end{frame}
+
+\begin{frame}
+\frametitle{\huge Ethernet Cabling} 
+\Large
+Straight-through cable: wires on both cable ends are in the same order.  
+ 
+\fig{0.6}{network_straight2}
+\end{frame}
+
+\begin{frame}
+\frametitle{\huge Ethernet Cabling} 
+\Large
+Crossover Cable: used to connect
+ \begin{itemize} 
+\item <1-> Switch to switch 
+\item <2-> Hub to hub
+\item <3-> Host to host
+\item <4-> Hub to switch 
+\item <5-> Router direct to host
+\end{itemize}
+\fig{0.6}{network_cross}
+\end{frame}
+
+\begin{frame}
+\frametitle{\huge Ethernet Cabling} 
+\Large
+Crossover Cable: wires on each end of the cable are crossed - Transmit to Receive and Receive to Transmit on each side, for both tip and ring.  
+\fig{0.55}{network_cross2}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Ethernet Cabling} 
+\framesubtitle{Summary}
+\fig{0.4}{network_cabling}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Fast Ethernet (802.3u)} 
+\Large
+ \begin{itemize} 
+\item <1-> designed to compete with LAN protocols such as FDDI or Fiber Channel. 
+\item <2-> upgrade the data rate to 100 Mbps.
+\item <3-> backward-compatible with Standard Ethernet.
+\item <4-> same frame format and 48-bit address.
+\item <5-> same minimum and maximum frame lengths.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Fast Ethernet (802.3u) Implementation} 
+\fig{0.5}{network_fastethernet}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Fast Ethernet (802.3u)} 
+\Large
+ \begin{itemize} 
+\item <1-> MAC sublayer was kept untouched
+\item <2-> star topology: half duplex and full duplex
+\item <3-> access method is the same (CSMA/CD) for the half-duplex
+\item <4-> \underline{autonegotiation} allows two devices to negotiate the mode or data rate of operation.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Address Resolution Protocol (ARP)} 
+\Large
+ \begin{itemize} 
+\item <1-> accepts a logical address from the IP protocol, then, identify and place the source and destination MAC address in the frame
+\item <2-> operates at the Internet layer, but the the MAC address is attached at the Network Access layer.
+\item <3-> maps a logical address to its corresponding physical address
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Address Resolution Protocol (ARP)} 
+\framesubtitle{Position of ARP in TCP/IP protocol suite}
+\fig{0.55}{network_arp}
+ \begin{itemize} 
+\Large
+\item <2-> Why do we need ARP?
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Operation} 
+\framesubtitle{ARP request is broadcast}
+\dquote{If this is your IP address, send me your \\ MAC address.}
+\fig{0.45}{network_arpop1}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Operation} 
+\framesubtitle{ARP reply is unicast}
+\dquote{This is my MAC address.}
+\fig{0.45}{network_arpop2}
+\end{frame}
+
+
+
+
+\begin{frame}
+\frametitle{\huge ARP Packet Format} 
+\fig{0.55}{network_arppacket}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Packet Format} 
+\Large
+ \begin{itemize} 
+\item <1->  Hardware type \\ $16$-bit field defining the type of the network on which ARP is running. Each LAN has been assigned. \\ 
+\quad Ex. Ethernet: type $1$
+\item <2-> Protocol type \\ $16$-bit field defining the protocol. \\ 
+\quad Ex. IPv4 protocol: $0800_{16}$  
+\item <3-> Hardware length \\  8-bit field defining the length of the physical address in bytes. \\ 
+\quad Ex. Ethernet: $6$ bytes 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Packet Format} 
+\Large
+ \begin{itemize} 
+\item <1->  Protocol Length \\ $8$-bit field defining the length of the logical address in bytes. \\ 
+\quad Ex. IPv4 protocol: $4$
+\item <2-> Operation \\ 16-bit field defining the type of packet\\
+\quad Ex. ARP request ($1$), ARP reply ($2$).
+\item <3-> Sender hardware address \\  variable-length field defining the physical address of the sender. \\ 
+\quad Ex. Ethernet: $6$ bytes 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Packet Format} 
+\Large
+ \begin{itemize} 
+\item <1->  Sender protocol address \\ variable-length field defining the logical address of the sender. \\ 
+\quad Ex. IPv4 protocol: $4$ bytes
+\item <2-> Target hardware address \\ variable-length field defining the physical address of the target.\\
+\quad Ex. Ethernet: $6$ bytes 
+\item <3-> Target protocol address \\ variable-length field defining the logical address of the target. \\ 
+\quad Ex. IPv4 protocol: $4 bytes$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Encapsulation of ARP packet} 
+\Large
+An ARP packet is encapsulated directly into a data link frame.
+\fig{0.5}{network_arpenc}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Usage Scenarios} 
+\fig{0.45}{network_arpscenario1}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge ARP Usage Scenarios} 
+\fig{0.45}{network_arpscenario2}
+\end{frame}
+
+ \frame{\frametitle{\HandRight \: Exercise}
+\Large
+A host with IP address $130.23.43.20$ and physical address $B2:34:55:10:22:10$ has a packet to send to another host with IP address $130.23.43.25$ and physical address $A4:6E:F4:59:83:AB$ (which is unknown to the first host). The two hosts are on the same Ethernet network. Show the ARP request and reply packets encapsulated in Ethernet frames.
+}
+
+
+\begin{frame}
+\frametitle{\huge ARP Exercise Request} 
+\fig{0.4}{network_arprequest}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge ARP Exercise Reply} 
+\fig{0.4}{network_arpreply}
+\end{frame} 
+
+
+\begin{frame}
+\frametitle{\huge Proxy ARP Router} 
+\Large
+ \begin{itemize} 
+\item <1-> acts on behalf of a set of hosts.
+\item <2-> whenever a router running a proxy ARP receives an ARP request looking for the IP address of one of its hosts, the router sends an ARP reply announcing its \underline{own} hardware (physical) address.
+\end{itemize}
+\end{frame}
+
+
+   \begin{frame}
+\frametitle{\huge Proxy ARP Router} 
+\fig{0.45}{network_arpproxy}
+After the router receives the actual IP packet, it  \\ sends the packet to the appropriate host or router.
+\end{frame}
+
+
+   \begin{frame}
+\frametitle{\huge Connecting Devices} 
+\Large
+ \begin{itemize} 
+\item <1-> To connect LANs and WANs together we use connecting devices.
+\item <2-> Ex. Repeaters (or hubs), Bridges (or two-layer switches), and Routers (or three-layer switches).
+\end{itemize}
+ \fig{0.55}{network_connections}
+\end{frame}
+
+
+   \begin{frame}
+\frametitle{\huge Repeater} 
+\Large
+\fig{0.65}{network_lanhub}
+A repeater forwards every bit; it has no filtering capability.
+\end{frame}
+
+\begin{frame}
+\frametitle{\huge Bridge} 
+\framesubtitle{Two-layer switch}
+\Large
+\begin{itemize} 
+\item <1-> operates in both the physical and the data link layers.
+\item <2-> PHY: regenerates the signal it receives. 
+\item <3-> DLL: check the MAC addresses (source and destination) contained in the frame.
+\item <4-> has a table used in filtering decisions.
+\end{itemize}
+\end{frame}
+
+
+
+
+
+
+\begin{frame}
+\frametitle{\huge Bridge} 
+\framesubtitle{Example}
+\Large
+The bridge consults its table to find the departing port.
+\fig{0.55}{network_bridge}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Transparent Bridge} 
+\Large
+\begin{itemize} 
+\item <1-> a bridge in which the stations are completely unaware of the bridge's existence.
+\item <2-> reconfiguration of the stations is unnecessary when added or deleted.
+\item <3-> forwarding function with dynamic forwarding table
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Bridge Learning} 
+\fig{0.6}{network_bridge2}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Switched LAN} 
+\framesubtitle{Traditional}
+\fig{0.5}{network_swlan}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Switched LAN} 
+\framesubtitle{Contemporary}
+\fig{0.55}{network_swlan2}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Bridging vs. LAN Switching} 
+\Large
+\begin{itemize} 
+\item <1-> Bridges are software based, while switches are hardware based (ASIC for filtering)
+\item <2-> A switch can be viewed as a multiport bridge.
+\item <3-> Switches have a higher number of ports than most bridges.
+\item <4-> Both bridges and switches forward layer 2 broadcasts.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Layer 2 Switch Functions} 
+\Large
+\begin{itemize} 
+\item <1-> Address learning \\
+remember the source hardware address of each frame received, and save in forward/filter table.
+\item <2-> Forward/filter decisions \\
+When a frame is received, the switch looks at the destination hardware address and finds the exit interface.
+\item <3-> Loop avoidance \\
+stop network loops while still permitting redundancy.
+\end{itemize}
+\end{frame}
+  
+
+\begin{frame}
+\frametitle{\huge Address Learning} 
+\fig{0.55}{network_swlearn}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Forward/Filter Decisions}
+Host A sends a data frame to Host D. What will the switch do when it receives the frame from Host A? 
+\fig{0.55}{network_filter}
+\end{frame}
+
+\begin{frame}
+\frametitle{\huge Network Redundancy} 
+\framesubtitle{Importance and Problem}
+\fig{0.45}{network_redundancy}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Loop Avoidance} 
+\framesubtitle{Spanning Tree Protocol (STP)}
+\Large
+" All root ports forward, \\ All nonroot ports block ".
+\fig{0.6}{network_stp}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Virtual Private Network}
+\framesubtitle{VPN}
+\begin{itemize} 
+\Large
+\item <1-> It enables a host computer to send and receive data across shared or public networks as if it were a private network with all the functionality
+\end{itemize}
+\fig{0.3}{network_vpn}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Network Security Issue}
+\begin{itemize} 
+\Large
+\item <1-> Ensure confidentiality through use of \\
+\quad $\circ$ User authentication \\
+\quad $\circ$ Data encryption
+\end{itemize}
+\fig{0.55}{network_security}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Virtual Private Networks}
+\Large
+\begin{itemize} 
+\item <1-> network connection that uses the Internet to give users or branch offices secure access to a company's network resources.
+\item <2-> use encryption technology to ensure that communication is private and secure
+\item <3-> Privacy is achieved by creating a "tunnel" between the VPN client and VPN server.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Virtual Private Network}
+A \underline{tunnel} is created by encapsulation, in which the inner packet containing the data is encrypted and the outer headers contain the unencapsulated addresses.
+\fig{0.45}{network_tunnel}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge VPN Types/ Benefits}
+\Large
+\begin{itemize} 
+\item <1-> Remote access VPNs \\ Enable mobile users to connect with corporate networks securely wherever an Internet connection is available.
+\item <2-> Site-to-site VPNs or intranet \\ Allow multiple sites to maintain permanent secure connections via the Internet instead of using expensive WAN links.
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge VPN Types/ Benefits}
+\Large
+\begin{itemize} 
+\item <1-> Reduce costs by using the ISP's support services instead of paying for more expensive WAN support.
+\item <2-> Eliminate the need to support dial-up remote access, which is a higher-cost solution requiring more personnel.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge IP Security}
+\framesubtitle{IPSec}
+\Large
+\begin{itemize} 
+\item <1-> a collection of protocols designed by the Internet Engineering Task Force (IETF) to provide security for a packet at the network level..
+\item <2-> helps create authenticated and confidential packets for the IP layer.
+\item <3-> operates in one of two different modes: transport or tunnel mode.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge IPSec Transport Mode}
+\Large
+IPSec in transport mode does not protect the IP header;\\ it only protects the information coming from the transport layer.
+\fig{0.5}{network_ipsectrans}
+It is used when we need host-to-host (end-to-end) protection of data.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge IPSec Tunnel Mode}
+\Large
+IPSec in tunnel mode protects the original IP header.
+\fig{0.5}{network_ipsectunnel}
+It is used between two routers, between a host and a router, or between a router and a host.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Tunnel vs. Transport Mode}
+\Large
+$\circ$ In transport mode, the IPSec layer comes between the transport layer and the network layer. \\
+$\circ$ In tunnel mode, the flow is from the network layer to the IPSec layer and then back to the network layer again.
+\fig{0.5}{network_tunnelvstrans}
+\end{frame}
+
+
+
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item 1000BASE-CX, 1000BASE-LX, 1000BASE-SX, 1000BASE-T \\  
+The IEEE 802.3 standards for Ethernet implementation with 1-Gbps data rate.
+\item 100BASE-FX, 100BASE-T4, 100BASE-TX, 100BASE-X \\ 
+The IEEE 802.3 standards for Fast Ethernet implementation with 100-Mbps data rate.
+\item 10BASE2, 10BASE5, 10BASE-F, 10BASE-E, 10BASE-L \\  
+The IEEE 802.3 standard for Thin Ethernet with 10-Mbps data rate.  
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Address Resolution Protocol (ARP) \\
+In TCP/IP, a protocol for obtaining the physical address of a node when the Internet address is known.
+\item  Address space  \\ 
+The total number of addresses used by a protocol.
+\item Bandwidth \\  The difference between the highest and lowest frequencies available for network signals. 
+The term is also used to describe the rated throughput capacity of a given network medium or protocol. 
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Bridge \\ 
+A network device operating at the first two layers of the OSI model with filtering and forwarding capabilities.
+\item Broadcast address \\
+An address that allows transmission of a message to all nodes of a network.
+\item Congestion \\ Excessive network or internetwork traffic causing a general degradation of service. 
+This can be seen in slower response times, longer file transfers and network users becoming less productive due to network delays. 
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA) \\
+An access method in wireless LANs that avoids collision by forcing the stations to send reservation messages when they find the channel is idle.
+\item Carrier Sense Multiple Access with Collision Detection (CSMA/CD) \\
+An access method in which stations transmit whenever the transmission medium is available and retransmit when collision
+occurs.
+\item Collision \\
+The event that occurs when two transmitters send at the same time on a channel designed for only one transmission at a time; data will be destroyed.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Consultative Committee for International Telegraphy and Telephony (CCITT) \\
+An international standards group now known as the ITU-T.
+\item Defense Advanced Research Projects Agency (DARPA)\\
+ A government organization, which, under the name of ARPA, funded ARPANET and the Internet.
+\item Ethernet \\
+A local area network using the CSMA/CD access method.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Extranet \\
+A private network that uses the TCP/IP protocol suite that allows authorized access from outside users.
+\item Flooding \\
+ Saturation of a network with a message.
+intranet A private network that uses the TCP/IP protocol suite.
+\item Intranet \\
+A private network that uses the TCP/IP protocol suite.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Institute of Electrical and Electronics Engineers (IEEE) \\
+A group consisting of professional engineers that has specialized societies whose committees prepare standards in members' areas of specialty.
+\item Logical tunnel \\
+The encapsulation of a multicast packet inside a unicast packet to enable multicast routing by non-multicast routers.
+\item Physical address \\
+The address of a device used at the data link layer (MAC address).
+\end{itemize}
+}
+
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Request for Comment (RFC) \\
+A formal Internet document concerning an Internet issue.
+\item Reverse Address Resolution Protocol (RARP) \\
+A TCP/IP protocol that allows a host to find its Internet address, given its physical address.
+\item Switch \\
+A device connecting multiple communication lines together.
+\item Switched Ethernet \\ 
+An Ethernet in which a switch, replacing the hub, can direct a transmission to its destination.
+\end{itemize}
+}
+
+
+
+\begin{frame}
+\frametitle{References}
+\Large
+TEXTBOOK: 
+\begin{itemize}
+\item  <1-> Data Communications and Networking, Behrouz Forouzan, 4th Edition, McGraw-Hill, 2007
+ \end{itemize}
+\fig{0.3}{forouzan2007}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> TCP/IP Protocol Suite, Behrouz Forouzan, 4th edition, 2010
+ \end{itemize}
+\fig{0.3}{forouzantcpip}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> Data and Computer Communications, William Stallings, 2007
+ \end{itemize}
+\fig{0.3}{stallings2007}
+\end{frame}
+ 
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> CISCO Networking Essentials, Troy McMillan, 2012
+ \end{itemize}
+\fig{0.3}{mcmillan2012}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> Network Fundamentals, Cisco Networking Academy, 2007
+ \end{itemize}
+\fig{0.4}{cisco}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Thank you for your attention!}
+\fig{0.6}{mthesis}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,2050 @@
+\documentclass{beamer}
+
+\usepackage{beamerthemeblackboard}
+\usepackage{graphics}
+
+
+
+\usepackage{beamerthemeblackboard}
+\usepackage{graphics}
+\usepackage{ifsym} %  
+\usepackage{epsdice} % dice
+\usepackage{clock} % 
+\usepackage{microtype}
+\usepackage{skull} %create skull
+\usepackage{cancel} %create diagonal bar (cancel)
+\usepackage{stackrel} %create arc?
+\usepackage{bbding} %create hands and cross
+\usepackage{pifont} %create circled numbers
+\usepackage{lipsum} % Just some sample text
+\usepackage{amsmath,amssymb,amsthm} %math functions like align
+\usepackage{fancybox} %For beautiful boxes
+\usepackage{xspace} % Prints a trailing space in a smart way.
+\usepackage{units}
+\usepackage{geometry} % change paper size
+\usepackage{multicol} % Small sections of multiple columns 
+\usepackage{color}
+
+
+% define your own colours:
+\definecolor{Red}{rgb}{1,0,0}
+\definecolor{Blue}{rgb}{0,0,1}
+\definecolor{Green}{rgb}{0,1,0}
+\definecolor{magenta}{rgb}{1,0,.6}
+\definecolor{lightblue}{rgb}{0,.5,1}
+\definecolor{lightpurple}{rgb}{.6,.4,1}
+\definecolor{gold}{rgb}{.6,.5,0}
+\definecolor{orange}{rgb}{1,0.4,0}
+\definecolor{hotpink}{rgb}{1,0,0.5}
+\definecolor{newcolor2}{rgb}{.5,.3,.5}
+\definecolor{newcolor}{rgb}{0,.3,1}
+\definecolor{newcolor3}{rgb}{1,0,.35}
+\definecolor{darkgreen1}{rgb}{0, .35, 0}
+\definecolor{darkgreen2}{rgb}{0, .38, 0}
+\definecolor{darkgreen}{rgb}{0, .6, 0}
+\definecolor{darkred}{rgb}{.75,0,0}
+\xdefinecolor{olive}{cmyk}{0.64,0,0.95,0.4}
+\xdefinecolor{purpleish}{cmyk}{0.75,0.75,0,0}
+ 
+
+
+
+% MY COMMANDS
+\newcommand{\s}{\vspace{0.2cm}} % adds space
+\newcommand{\ns}{\vspace{-0.5cm}}  % subtracts space
+\newcommand{\fig}[2]{
+\begin{center}
+\begin{figure}
+\includegraphics[scale=#1]{figures/#2}
+\end{figure}
+\end{center}
+}
+
+%question block with choices in column
+\newcommand{\qc}[6]{
+\begin{block}{\Large #1 }
+\begin{enumerate}[]
+\item #2
+\item #3
+\item #4
+\item #5
+\item #6
+\end{enumerate} 
+\end{block}
+}
+
+\newcommand{\ans}[2]{\alert<#1>{\textbf<#1>{#2}}  \only<#1>{ \textcolor {Red} \checkmark }} 
+\newcommand{\dquote}[1]{\ding{125} \emph{#1} \ding{126}} %decorative quote
+\newcommand{\true}{\text{\bf T}} %true 
+\newcommand{\false}{\text{\bf F}} %false
+%formula block
+\newcommand{\f}[1]{
+\begin{center}
+\shadowbox{ $ #1 $}
+\end{center}
+}
+
+
+
+% HANDOUTS
+
+\usepackage{handoutWithNotes}
+
+\pgfpagesuselayout{2 on 1 with notes landscape}[a4paper,border shrink=5mm]
+
+\pgfpageslogicalpageoptions{1}{border code=\pgfusepath{stroke}}
+\pgfpageslogicalpageoptions{2}{border code=\pgfusepath{stroke}}
+
+ 
+
+\begin{document}
+
+% set handwritten font, necessary packages are loaded in beamerthemeblackboard.sty
+\ECFAugie
+
+\begin{frame}
+
+\begin{center}
+\begin{figure}
+\includegraphics[scale=0.3]{figures/dlsulogo}
+\end{figure}
+\end{center}
+\ns
+
+\title{DATCOMM  \\ \underline{Introduction to Data } \\ \underline{and Computer Networks}}
+\author{Engr. Melvin K. Cabatuan, MsE}
+\date{January 2013}
+\institute{De La Salle University}
+\maketitle
+\end{frame}
+
+\begin{frame}
+\frametitle{Objectives}
+\framesubtitle{}
+\begin{itemize} 
+\Large
+\item <1-> Identify the scope and significance of Data Computer Networking in today's world
+\item <2-> Define and illustrate Data Communications and Data Network.
+\item <3-> Describe the Network Components and its Architecture.
+\item <4-> Illustrate and explain the Internet.
+\item <5-> Explain the various Network Communication Models
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why Study Networks?}
+ \begin{itemize} 
+\Large
+\item <1-> Networks support and improve our lives by providing instantaneous local or global communications. 
+\end{itemize}
+\fig{0.45}{network_adv}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why Study Networks?}
+ \begin{itemize} 
+\Large
+\item <1-> Networks improve teaching and learning through sharing and collaboration. 
+\end{itemize}
+\fig{0.45}{network_adv2}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why Study Networks?}
+ \begin{itemize} 
+\Large
+\item <1-> Networks change the way we work. 
+\end{itemize}
+\fig{0.45}{network_adv3}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Why Study Networks?}
+ \begin{itemize} 
+\Large
+\item <1-> Networks supports the way we play. 
+\end{itemize}
+\fig{0.45}{network_adv4}
+\end{frame}
+ 
+
+
+\begin{frame}
+\frametitle{Data Communications}
+\begin{itemize} 
+\Large
+\item <2->  are the transfer of data from one device to another via some
+form of transmission medium.
+\end{itemize}
+\fig{0.45}{network_adv5}
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{Data Communications}
+\begin{itemize} 
+\Large
+\item <1-> The five components that make up a data communications system are the message, sender, receiver, medium, and protocol.
+\end{itemize}
+\fig{0.5}{datacomm5}
+\end{frame}
+
+ \frame{\frametitle{Possible Quiz Question}
+\Large
+\qc{A set of rules that govern data communications. It represents an agreement between the communicating devices. Without it, two devices may be connected but not communicating.}
+{A. Message }
+{B. Sender  }
+{C. Receiver}
+{D. Medium}
+{\ans{2}{E. Protocol}}
+ }
+
+
+ \frame{\frametitle{Possible Quiz Question}
+\Large
+\qc{It is a fundamental characteristics of a data communication system which refers to the variation in the packet arrival time.}
+{\ans{2}{A. Jitter }}
+{B. Accuracy  }
+{C. Timeliness}
+{D. Delivery}
+{E. All of the above}
+ }
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft  Remember}
+\framesubtitle{}
+\begin{itemize} 
+\Large
+\item <1-> Delivery. \\ The system must deliver data to the correct destination.
+\item <2-> Accuracy. \\ The system must deliver the data accurately.
+\item <3-> Timeliness. \\ The system must deliver data in a timely manner.
+\item <4-> Jitter. \\ Jitter refers to the variation in the packet arrival time.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{What is a Network?}
+\only<2>{
+\begin{itemize} 
+\Large
+\item <1-> A set of communication devices (nodes) connected by media links capable of carrying different types of communications.
+\end{itemize}
+\fig{0.5}{networks}
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft  Remember}
+\framesubtitle{}
+\begin{itemize} 
+\Large
+\item <1-> Devices \\These are used to communicate with one another.
+\item <2-> Medium \\ This is how the devices are connected together.
+\item <3-> Messages \\ Information that travels over the medium.
+\item <4-> Rules / Protocol \\ Governs how messages flow across network.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Computer Network}
+\only<2>{
+\begin{itemize} 
+\Large
+\item <1-> A network of "computers".
+\end{itemize}
+\fig{0.5}{network_computer}
+}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Why Network Computers?}
+\begin{itemize} 
+\Large
+\item <2-> To increase productivity by linking computers and computer networks allowing users to share resources and data. Ex.
+\item <3-> Data and applications
+\item <4-> Resources, i.e. I/O devices like cameras \& printers
+\item <5-> Network Storage 
+\item <6-> Backup devices
+\end{itemize}
+ \end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Why Network Computers?}
+\begin{itemize} 
+\Large
+\item <1-> Reduced Cost and Easier Installation of Software. 
+\item <1-> Ex. Network installation
+\end{itemize}
+\fig{0.5}{nework_installation}
+ \end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Why Network Computers?}
+\begin{itemize} 
+\Large
+\item <1-> Improved Security 
+\item <2-> Improved Communications
+\item <3-> More Workplace Flexibility
+\item <4-> Reduced Cost of Peripherals
+\item <5-> Centralized Administration
+\end{itemize}
+ \end{frame}
+
+
+\begin{frame}
+\frametitle{\huge Network Requirements?}
+\begin{itemize} 
+\Large
+\item <1-> At least two computers
+\item <2-> A resource that needs to be shared
+\item <3-> A transmission medium
+\item <4-> A communications agreement
+\end{itemize}
+ \end{frame}
+
+
+\begin{frame}
+\frametitle{Network Category}
+\framesubtitle{By type of MEDIA}
+\begin{itemize} 
+\Large
+\item <1-> Wired and Wireless
+\end{itemize}
+
+\ns
+\qquad \fig{0.5}{network_cat}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Network Media}
+\begin{itemize} 
+\Large
+\item <1-> this is the channel over which a message travels
+\end{itemize}
+\fig{0.5}{network_media}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Network Category}
+\framesubtitle{By COVERAGE}
+
+\ns
+\qquad \fig{0.5}{network_cov}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Local Area Network}
+\framesubtitle{LAN}
+\begin{itemize} 
+\Large
+\item <2-> Can be as small as two computers.
+\item <3-> Laboratory w/ networked computers.
+\item <4-> A network within a building or several buildings.
+\item <5-> Speed at 10, 100, or 1000 Mbps 
+\end{itemize}
+
+\fig{0.6}{network_lan}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Metropolitan Area Network}
+\framesubtitle{MAN}
+\begin{itemize} 
+\Large
+\item <2-> covers the area inside a town or a city.
+\item <3-> Ex. Cable TV network
+\end{itemize}
+
+\fig{0.45}{network_man}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Wide Area Network}
+\framesubtitle{WAN}
+\begin{itemize} 
+\Large
+\item <2-> provides long-distance transmission of data, image, audio, and video information over large geographic areas that may comprise a country, a continent, or even the whole world.
+\end{itemize}
+ 
+\fig{0.4}{network_wan}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Interconnection of Networks: Internetwork}
+\begin{itemize} 
+\Large
+\item <2-> Today, it is very rare to see a LAN, a MAN in isolation; they are connected to one another.
+\item <3-> When two or more networks are connected, they become an internetwork, or internet.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example}
+\begin{itemize} 
+\Large
+\item <1-> Assume that an organization has two offices, one in Manila
+and the other in Cebu. The established office on Manila has a bus topology LAN; the newly opened office on Cebu has a star topology LAN. The president of
+the company lives somewhere in the middle and needs to have control over the company from her home in Boracay.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Example}
+\begin{itemize} 
+\Large
+\item <1-> To create a backbone WAN for connecting these three entities (two
+LANs and the president's computer), a switched WAN (operated by a service provider
+such as a telecom company) has been leased. To connect the LANs to this switched
+WAN, however, three point-to-point WANs are required. These point-to-point WANs
+can be a high-speed DSL line offered by a telephone company or a cable modern line
+offered by a cable TV provider.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Illustration}
+\framesubtitle{Four WANs + two LANs}
+\fig{0.42}{network_ex}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\huge Virtual Private Network}
+\framesubtitle{VPN}
+\begin{itemize} 
+\Large
+\item <2-> It enables a host computer to send and receive data across shared or public networks as if it were a private network with all the functionality
+\end{itemize}
+ 
+\fig{0.3}{network_vpn}
+\end{frame}
+
+
+
+ \frame{\frametitle{Other Networks}
+\begin{itemize} 
+\Large
+\item <1-> Campus Area Network, Corporate Area Network (CAN) \\ essentially a local area network.
+\item <2-> Personal Area Network (PAN) \\ A network, typically of devices centered around the user
+\item <3-> Wireless PAN (WPAN) \\ a typical implementation of a PAN
+\item <4-> Sensor Networks \\ A specialized network of devices typically used for monitoring    
+\end{itemize}
+ }
+
+
+
+
+
+\begin{frame}
+\frametitle{Network Topology}
+\fig{0.4}{network_topology}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Network Topology}
+\framesubtitle{Four Basic Topologies}
+\fig{0.6}{network_topology1}
+\end{frame}
+
+
+
+ \frame{\frametitle{Mesh Topology}
+\begin{itemize} 
+\Large
+\item <1-> Every device has a dedicated point-to-point link to every other device.
+\end{itemize}
+\fig{0.5}{network_mesh}
+ }
+
+ \frame{\frametitle{Possible Quiz Question}
+\begin{itemize} 
+\Large
+\item <1-> How many duplex-mode links do we have on a mesh network with $n$ nodes?
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Mesh Topology}
+\framesubtitle{Advantages}
+\begin{itemize} 
+\Large
+\item <1-> Dedicated links guarantees that each connection can carry its own data load, thus eliminating the traffic problems.
+\item <2-> A mesh topology is robust.
+\item <3-> The advantage of privacy or security.
+\item <4-> Point-to-point links make fault identification and fault isolation easy.
+\end{itemize}
+ }
+
+ \frame{\frametitle{Mesh Topology}
+\framesubtitle{Disadvantages}
+\begin{itemize} 
+\Large
+\item <1-> Installation and reconnection are difficult because every device must be connected to every other device.
+\item <2-> Bulk of the wiring can be greater than the available space (in walls, ceilings, or floors) can accommodate.
+\item <3-> Hardware required to connect each link (I/O ports and cable) can be prohibitively expensive.
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Star Topology}
+\begin{itemize} 
+\Large
+\item <1-> Each device has a dedicated point-to-point link only to a central controller, usually called a hub.
+\end{itemize}
+\fig{0.5}{network_star}
+ }
+
+
+ \frame{\frametitle{Star Topology}
+\framesubtitle{Advantages}
+\begin{itemize} 
+\Large
+\item <1-> Less expensive than a mesh topology.
+\item <2-> Easy to install and reconfigure.
+\item <3-> Easy fault identification and fault isolation.
+\item <4-> Relatively robust because if one link fails, only that link is affected.
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Star Topology}
+\framesubtitle{Disadvantages}
+\begin{itemize} 
+\Large
+\item <1-> Dependency of the whole topology on one single point, the hub. If the hub goes down, the whole system is dead.
+\item <2-> Often more cabling is required in a star than in some other topologies (such as ring or bus).
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Bus Topology}
+\begin{itemize} 
+\Large
+\item <1-> One long cable acts as a backbone to link all the devices in a network.
+\item <1->  Drop line is a connection running between the device and the main cable.
+\end{itemize}
+\fig{0.5}{network_bus}
+ }
+
+
+ \frame{\frametitle{Bus Topology}
+\framesubtitle{Advantages}
+\begin{itemize} 
+\Large
+\item <1-> Ease of installation.
+\item <2-> Uses less cabling than mesh or star topologies, hence less expensive.
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Bus Topology}
+\framesubtitle{Disadvantages}
+\begin{itemize} 
+\Large
+\item <1-> Difficult reconnection and fault isolation.
+\item <2-> Difficult to add new devices.
+\item <3-> Signal reflection at the taps can cause degradation in quality.
+\item <4-> A fault or break in the bus cable stops all transmission.
+\end{itemize}
+ }
+
+
+
+ \frame{\frametitle{Ring Topology}
+\begin{itemize} 
+\Large
+\item <1-> Each device has a dedicated point-to-point connection with only the two devices on either side of it.
+\item <1-> When a device receives a signal intended for another device, its repeater regenerates the bits and passes them along.
+\end{itemize}
+\fig{0.3}{network_ring}
+ }
+
+
+ \frame{\frametitle{Ring Topology}
+\framesubtitle{Advantages}
+\begin{itemize} 
+\Large
+\item <1-> Easy to install and reconfigure.
+\item <2-> Fault isolation is simplified. Generally in a ring, a signal is circulating at all times. If one device does not
+receive a signal within a specified period, it can issue an alarm.
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Ring Topology}
+\framesubtitle{Disadvantages}
+\begin{itemize} 
+\Large
+\item <1-> Unidirectional traffic can be a disadvantage. In a simple ring, a break in the ring (such as a disabled station) can disable the entire network.
+\item <2-> Today, the need for higher-speed LANs has made this topology less popular.
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Network Architecture}
+\framesubtitle{According to Security Relationships}
+\begin{itemize} 
+\Large
+\item <1-> Peer-to-peer Network (P2P).
+\item <2-> Client-server Network.
+\end{itemize}
+ }
+
+
+
+\frame{\frametitle{\huge Peer-to-peer Network (P2P)}
+\framesubtitle{Workgroup}
+\begin{itemize} 
+\Large
+\item <1-> shared data is distributed on each computers.
+\end{itemize}
+\fig{0.45}{network_p2p}
+ }
+
+\frame{\frametitle{\huge Peer-to-peer Network (P2P)}
+\framesubtitle{Workgroup}
+\fig{0.45}{network_p2p2}
+ }
+
+
+\frame{\frametitle{\huge Peer-to-peer Network (P2P)}
+\framesubtitle{Pros and Cons}
+\begin{itemize} 
+\Large
+\item <1-> Advantages \\
+$\circ$ Low cost \\
+$\circ$ Easy to set up \\
+$\circ$ No server required \\
+\item <2-> Disadvantages \\
+$\circ$ No centralized control of security \\
+$\circ$ Administrative burden of maintaining accounts on all computers
+$\circ$ Not scalable
+\end{itemize}
+ }
+
+
+\frame{\frametitle{\huge Client-server Network} 
+\begin{itemize} 
+\Large
+\item <1-> shared data is centralized on a device called a file server.
+\end{itemize}
+\fig{0.45}{network_serverclient}
+ }
+
+
+\frame{\frametitle{\huge Client-server Network} 
+\fig{0.5}{network_serverclient2}
+ }
+
+
+\frame{\frametitle{\huge Client-server Network}
+\framesubtitle{Pros and Cons}
+\begin{itemize} 
+\Large
+\item <1-> Advantages \\
+$\circ$ Centralized administration \\
+$\circ$ Single sign-on \\
+$\circ$ Reduced broadcast traffic \\
+$\circ$ Scalability
+\item <2-> Disadvantages \\
+$\circ$ Higher cost \\
+$\circ$ More challenging technically \\
+$\circ$ Single point of failure with a single file server
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{Network Transmission Modes}
+\begin{itemize} 
+\Large
+\item <1-> Unicast (One-to-one).\\
+a single source host is sending information to a single destination host
+\item <2-> Broadcast (One-to-many). \\
+a single host is sending information to all other hosts on the network
+\item <3-> Multicast (One-to-some). \\
+a single host is sending a transmission to some, but not all hosts
+\end{itemize}
+ }
+
+
+ \frame{\frametitle{\huge Transmission Modes}
+\framesubtitle{Illustration}
+\fig{0.4}{network_modes}
+ }
+
+
+ \frame{\frametitle{\huge Network Representations}
+\fig{0.5}{network_symbols}
+ }
+
+
+ \frame{\frametitle{Heirarchical Topology}
+\framesubtitle{Cisco hierarchical model}
+\begin{itemize} 
+\Large
+\item <2-> Core layer ==> backbone
+\item <3-> Distribution layer  ==> routing
+\item <4-> Access layer  ==> switching
+\end{itemize}
+\fig{0.35}{cisco_heirarchy}
+ }
+
+
+ \frame{\frametitle{Cisco hierarchical model}
+\framesubtitle{Core layer (Backbone)}
+\begin{itemize} 
+\Large
+\item <2-> Literally the core of the network.
+\item <3-> Switch large amounts of traffic both reliably and quickly.
+\item <4-> If there is a failure in the core, every single user can be affected.
+\end{itemize}
+  }
+
+
+ \frame{\frametitle{Cisco hierarchical model}
+\framesubtitle{Distribution layer (Routing)}
+\begin{itemize} 
+\Large
+\item <2-> sometimes referred to as the \underline{workgroup layer}.
+\item <3-> provides routing, filtering, and WAN access and to determine how packets can
+access the core, if needed.
+\item <4-> Place to implement security and policies for the network including address translation and firewalls.
+\end{itemize}
+  }
+
+
+ \frame{\frametitle{Cisco hierarchical model}
+\framesubtitle{Access layer (Switching)}
+\begin{itemize} 
+\Large
+\item <2-> sometimes referred to as the \underline{desktop layer}.
+\item <3-> controls user and workgroup access to internetwork resources.
+\item <4-> segmentation
+\end{itemize}
+  }
+
+
+ \frame{\frametitle{\huge Structure of the Internet}
+\begin{itemize} 
+\Large
+\item <2-> Hierarchical
+\item <3-> Common standards
+\item <4-> Common protocols
+\end{itemize}
+\fig{0.4}{internet_structure}
+ }
+
+
+ \frame{\frametitle{Access Networks}
+\framesubtitle{\large Connects end hosts to the network core}
+
+RESIDENTIAL ACCESS:
+\begin{itemize} 
+\Large
+\item <2-> Dial-up modem via Public Switched Telephone Network
+\item <3-> DSL
+\item <4-> Cable Broadband
+\item <5-> Wireless Broadband (Wimax, etc.)
+\item <6-> FTTH
+\end{itemize}
+
+\uncover<7->{
+ACCESS WITHIN ENTERPRISE LAN's:
+\begin{itemize} 
+\Large
+\item Ethernet/IEEE 802.3 and Wifi
+\end{itemize}
+}
+  }
+
+
+\frame{\frametitle{WAN Technologies}
+\begin{itemize} 
+\Large
+\item <2-> Links the components of the Internetwork core.
+\item <3-> Includes: \\
+X.25 \\
+Frame Relay \\
+ISDN, BISDN \\
+ATM \\
+SONET/SDH
+ \end{itemize}
+  }
+
+
+\frame{\frametitle{Packet Switching}
+\Large
+The Internet and other computer networks use packet switching
+\begin{itemize} 
+\item <2-> A persistent \underline{path for signals/data} (circuit) is not necessary for duration of communications.
+\item <3-> Data is broken down into chunks (packets) and each piece is sent through the network.
+\item <4-> Each packet may take various paths through the network.
+\item <5-> Packets may arrive out of sequence.
+ \end{itemize}
+  }
+
+\begin{frame}
+\frametitle{Packet Switching}
+\fig{0.55}{packet}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft  Remember}
+\framesubtitle{}
+\begin{itemize} 
+\Large
+\item <1-> X.25 (64-kbps) \\ A virtual-circuit switching network with extensive flow and error control.
+\item <2-> Frame Relay (1.544 - 44.376 Mbps) \\ uses variable-length packets, called frames; strips out most of the overhead involved with error control. 
+\item <3-> Asynchronous transfer mode (ATM) \\ uses fixed-length packets, called cells.\\
+(10s, 100s of Mbps, and Gbps range)
+\end{itemize}
+\end{frame}
+
+
+
+ \frame{\frametitle{Quality of Service}
+\framesubtitle{QoS}
+\begin{itemize} 
+\large
+\item <2-> treat different traffic flows differently.
+\end{itemize}
+\fig{0.5}{network_qos}
+ }
+
+
+ \frame{\frametitle{Quality of Service}
+\framesubtitle{QoS}
+\begin{itemize} 
+\large
+\item <2-> ensure quality of service for applications that require it.
+\end{itemize}
+\fig{0.5}{network_qos2}
+ }
+
+
+ \frame{\frametitle{Quality of Service}
+\framesubtitle{QoS}
+\begin{itemize} 
+\large
+\item <2-> appropriate QoS strategy for a given type of traffic.
+\end{itemize}
+\fig{0.45}{network_qos3}
+ }
+
+
+\frame{\frametitle{Protocols}
+\framesubtitle{Rules}
+\begin{itemize} 
+\Large
+\item <2-> shared conventions for communicating information.
+\item <3-> defines WHAT is communicated, HOW it is communicated, and WHEN it is communicated.
+\item <4-> Protocols specify \\
+\underline{Syntax}: Data format, and Signal levels \\
+\underline{Semantics}: Meaning of each bit section; Flow control, Error handling \\
+\underline{Timing}: Speed match, and Sequencing \\ 
+\end{itemize}
+  }
+
+
+ \frame{\frametitle{Protocols}
+\framesubtitle{Illustration}
+\fig{0.45}{network_protocol}
+ }
+
+
+\frame{\frametitle{Protocol Architecture}
+\begin{itemize} 
+\Large
+\item <2-> specifies how a protocol is organized and implemented.
+\item <3-> layered structure of hardware and software that supports the exchange of data between systems and supports distributed applications, such as email and file transfer.
+\item <4-> at each layer of a protocol architecture, one or more common protocols are implemented in communicating systems.  
+\end{itemize}
+  }
+
+
+\frame{\frametitle{Protocol Architecture}
+\Large
+\begin{itemize} 
+\item <1-> Two approaches \\
+1. Monolithic (single module) \\
+2. Modular (layered) \\ 
+\end{itemize}
+ \ns  
+\fig{0.5}{network_modular}
+\begin{itemize} 
+\item <2-> Advantages of Modular Approach \\
+1. Breaks complex tasks into subtasks. \\
+2. Changes in one layer do not affect other layers. \\ 
+\end{itemize}
+  }
+
+\frame{\frametitle{Layered Model}
+\framesubtitle{Illustration}
+\fig{0.5}{network_layered}
+ }
+
+\frame{\frametitle{\huge Layered Protocol Architecture}
+\begin{itemize} 
+\Large
+\item <1-> Each layers acts as a module.
+\item <2-> Communication occurs \\
+1. between different modules on the same system \\
+2. between similar modules on different systems \\
+\end{itemize}
+\fig{0.4}{network_layered2}
+  }
+
+
+
+\frame{\frametitle{\huge Layered Architecture}
+\framesubtitle{Example}
+\begin{itemize} 
+\Large
+\item <1-> Open Systems Interconnection model (OSI).
+\end{itemize}
+\fig{0.6}{network_osi}
+  }
+
+
+\frame{\frametitle{OSI Reference Model}
+\begin{itemize} 
+\Large
+\item <1-> layered framework developed by International Organization for Standardization (ISO) for the design of network systems that allows communication between all types of computer systems.
+\item <2-> consists of seven separate but related layers, each of which defines a part of the process of moving information across a network.
+\item <3-> not a protocol; it is a reference model.
+\end{itemize}
+  }
+
+\frame{\frametitle{OSI Reference Model}
+\fig{0.4}{network_model}
+}
+
+\frame{\frametitle{OSI Reference Model}
+\framesubtitle{Host-to-host link }
+\fig{0.6}{network_osi2}
+}
+
+
+\frame{\frametitle{OSI Model Layers}
+\begin{itemize} 
+\Large
+\item <1-> Layers 1, 2, and 3 - physical, data link, and network - are the network support layers \\
+\item <2-> they deal with the physical aspects of moving data from one device to another (such as electrical
+specifications, physical connections, physical addressing, and transport timing and reliability)
+ \end{itemize}
+  }
+
+\frame{\frametitle{OSI Model Layers}
+\begin{itemize} 
+\Large
+\item <1->  Layers 5, 6, and 7 - session, presentation, and application - can be thought of as the user support layers; \\ 
+they allow interoperability among unrelated software systems.
+\item <2-> Layer 4, the transport layer, links the two subgroups and ensures that what the lower layers have transmitted is in a form that the upper layers can use.
+\end{itemize}
+  }
+
+
+\frame{\frametitle{Physical Layer (PHY)}
+\Large
+- is responsible for movements of individual bits from one hop (node) to the next.
+\fig{0.45}{network_physical}
+  }
+
+
+\frame{\frametitle{Physical Layer (PHY)}
+\begin{itemize} 
+\Large
+\item <1-> coordinates the functions required to carry a bit stream over a physical medium.
+\item <2-> deals with the mechanical and electrical specifications of the interface and transmission medium.
+\item <3-> defines the procedures and functions that physical devices and interfaces have to perform for transmission to occur
+\end{itemize}
+  }
+
+
+\frame{\frametitle{Physical Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Physical characteristics of interfaces and medium.
+\item <2-> Representation of bits.
+\item <3-> Data rate.
+\item <4-> Synchronization of bits.
+\item <5-> Physical topology. 
+\item <6-> Line configuration.  
+\item <7-> Transmission mode.
+\end{itemize}
+ }
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft  Remember}
+\framesubtitle{Line Configuration}
+connection of devices to the media.
+\begin{itemize} 
+\Large
+\item <1-> Point-to-point configuration \\ two devices are connected through a dedicated link.
+\item <2-> Multipoint configuration \\ a link is shared among several devices
+\end{itemize}
+\fig{0.35}{line_config}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft  Remember}
+\framesubtitle{Transmission mode}
+direction of transmission between two devices.
+\begin{itemize} 
+\Large
+\item <1-> Simplex mode \\ only one device can send; the other can only receive.
+\item <2-> Half-duplex mode \\ two devices can send and receive, but not at the same time.
+\item <3-> Full-duplex mode \\ two devices can send and receive at the same time.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Transmission mode}
+\framesubtitle{Data flow \\ (simplex, half-duplex, and full-duplex) }
+\fig{0.5}{data_flow}
+\end{frame}
+
+
+\frame{\frametitle{Data Link Layer (DLL)}
+\framesubtitle{or simply Link Layer}
+\Large
+- is responsible for moving \underline{frames} from one hop (node) to the next.
+\fig{0.5}{network_link}
+  }
+
+
+\frame{\frametitle{Data Link Layer (DLL)}
+\begin{itemize} 
+\Large
+\item <1-> transforms the physical layer, a raw transmission facility, to a reliable link.
+\item <2-> makes the physical layer appear error-free to the upper layer (network layer).
+\end{itemize}
+  }
+
+\frame{\frametitle{\huge Data Link Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Framing \\ divides the stream of bits received from the network layer into manageable data units called frames
+\item <2-> Physical addressing \\
+ adds a header to the frame to define the sender and/or receiver of the frame. 
+If the frame is intended for a system outside the sender's network, the receiver address is the address of the device that connects the network to the next one.
+ \end{itemize}
+ }
+
+
+\frame{\frametitle{Data Link Layer (DLL)}
+\framesubtitle{ Hop-to-hop delivery }
+\Large
+- communication at the data link layer occurs between two adjacent nodes
+\fig{0.4}{network_hop}
+  }
+
+
+
+\frame{\frametitle{\huge Data Link Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Flow control \\ imposes a flow control mechanism to avoid overwhelming the receiver.
+\item <2-> Error control \\ Adds reliability to the physical layer by adding mechanisms to detect and retransmit damaged or lost frames.  
+\item <3-> Access control \\ in multipoint configuration, link layer protocols are necessary to determine which device has control over the link at any given time.
+ \end{itemize}
+ }
+
+
+\frame{\frametitle{\huge Data Link Layer Example}
+\begin{itemize} 
+\Large
+\item <1-> Ethernet (802.3) and Media Access Control (MAC) address applied to the network adaptor by the manufacturer during production.
+ \end{itemize}
+\fig{0.4}{network_adapter}
+ }
+
+
+\frame{\frametitle{Network Layer}
+\Large
+- is responsible for the delivery of individual packets from the source host to the destination host.
+\fig{0.4}{network_network}
+  }
+
+\frame{\frametitle{Network Layer}
+\begin{itemize} 
+\Large
+\item <1-> ensures that each packet gets from its point of origin to its final destination.
+\item <2-> If two systems are connected to the same link, there is usually no need for a network layer.
+\item <3-> If the two systems are attached to different networks with connecting devices between the networks, there is often a need for the network layer to accomplish source-to-destination delivery.
+\end{itemize}
+  }
+
+\frame{\frametitle{\huge Network  Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Logical addressing \\ if a packet passes the network boundary, we need another addressing system to help distinguish the source and destination systems.
+\item <2-> Routing \\ provides mechanism to route or set the path of the packets to their final destination
+
+ \end{itemize}
+ }
+
+\frame{\frametitle{Network Layer}
+\fig{0.45}{network_network2}
+  }
+
+
+\frame{\frametitle{Transport Layer}
+\Large
+\begin{itemize} 
+\item <1->  is responsible for process-to-process delivery of the entire message.
+\item <2->  a process is an application program running on a host.
+\end{itemize}
+\fig{0.4}{network_transport}
+  }
+
+
+\frame{\frametitle{Transport Layer}
+\Large
+\begin{itemize} 
+\item <1->  ensures that the \underline{whole message} arrives intact and in order.
+\end{itemize}
+\fig{0.4}{network_transport2}
+  }
+
+
+\frame{\frametitle{\HandRightUp Understand}
+\begin{itemize} 
+\Large
+\item <1-> The network layer gets \underline{each packet} to the correct computer; the transport layer gets the \underline{entire message} to the correct process on that computer.
+\item <2-> Network layer does not recognize any relationship between the packets it delivers and treats each one independently.
+\item <3-> The transport layer, however, ensures that the whole message arrives intact and in order, overseeing
+both error control and flow control.
+\end{itemize}
+ }
+
+
+
+\frame{\frametitle{\huge Transport  Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Service-point addressing  \\ address for delivery from a specific process (running program) on one computer to a specific process (running program) on the other.
+\item <2-> Segmentation and reassembly \\ message is divided into transmittable segments, with each segment containing a sequence numbers enabling the transport layer to reassemble the message correctly.
+ \end{itemize}
+ }
+
+
+\frame{\frametitle{\huge Transport  Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Connection control \\ either connectionless or connection-oriented. \\
+\item <2-> End-to-end Flow control
+\item <3-> Process-to-process Error control
+\item <4-> Transport layer protocol and the port number
+ \end{itemize}
+ }
+
+
+\frame{\frametitle{Session Layer}
+\Large
+\begin{itemize} 
+\item <1->  is responsible for dialog control and synchronization.
+\item <2->  establishes, maintains, \& synchronizes the interaction among communicating
+systems.
+\end{itemize}
+\fig{0.35}{network_session}
+  }
+
+
+\frame{\frametitle{\huge Session Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Dialog control \\ allows two systems to enter into a dialog \\
+allows the communication between two processes to take place in either half-duplex or full-duplex mode.
+\item <2-> Synchronization \\ allows a process to add checkpoints, or synchronization points, to a stream of data.
+ \end{itemize}
+ }
+
+
+\frame{\frametitle{Presentation Layer}
+\Large
+\begin{itemize} 
+\item <1->  is responsible for translation, compression, and encryption.
+\item <2->  concerned with the syntax and semantics of the information exchanged between two systems.
+\end{itemize}
+\fig{0.35}{network_presentation}
+  }
+
+
+
+\frame{\frametitle{\huge Presentation Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Translation \\ responsible for interoperability between different encoding methods  
+\item <2-> Encryption \\ the sender transforms the original information to another form and sends the resulting message.
+\item <3-> Compression \\  reduce the number of bits.
+ \end{itemize}
+ }
+
+\frame{\frametitle{\huge Presentation Layer Examples}
+\begin{itemize} 
+\Large
+\item <1-> JPEG- Joint Photographic Experts Group
+\item <2-> MPEG- The Moving Picture Experts Group's standard 
+\item <3-> MIDI- Musical Instrument Digital Interface  
+\item <4-> TIFF- Tagged Image File Format 
+ \end{itemize}
+ }
+
+\frame{\frametitle{Application Layer}
+\Large
+\begin{itemize} 
+\item <1->  is responsible for providing services to the user.
+\item <2->  enables the user, whether human or software, to access the network.
+\end{itemize}
+\fig{0.35}{network_application}
+  }
+
+
+\frame{\frametitle{Application Layer}
+\framesubtitle{The Interface Between Human and Data Networks}
+\fig{0.5}{network_application2}
+  }
+
+
+
+\frame{\frametitle{Application Layer}
+\framesubtitle{The Interface Between Human and Data Networks}
+\fig{0.5}{network_application3}
+  }
+
+
+\frame{\frametitle{\huge Application Layer Concerns}
+\begin{itemize} 
+\Large
+\item <1-> Network virtual terminal \\ a software version of a physical terminal, and it allows a user to log on to a remote host. 
+\item <2-> File transfer, access, and management\\ allows a user to access files in a remote host, and to manage or control files
+\item <3-> Mail services
+\item <4-> Directory services
+ \end{itemize}
+ }
+
+
+\frame{\frametitle{Application Layer} 
+\fig{0.5}{network_application5}
+  }
+
+
+\frame{\frametitle{\huge Application Layer Examples}
+\begin{itemize} 
+\Large
+\item <1-> World Wide Web (WWW)
+\item <2-> E-mail gateways
+\item <3-> Internet navigation utilities 
+\item <4-> Financial transaction services 
+\item <5-> Domain Name System (DNS) queries
+\item <6-> File Transfer Protocol (FTP) transfers
+\item <7-> Simple Mail Transfer Protocol (SMTP) email transfers
+ \end{itemize}
+ }
+
+\frame{\frametitle{OSI Reference Model}
+\framesubtitle{Data exchange and Encapsulation}
+\fig{0.7}{network_osi3}
+}
+
+
+\frame{\frametitle{Data Encapsulation}
+\begin{itemize} 
+\Large
+\item <1-> To communicate and exchange information, each layer uses Protocol Data Units (PDUs). These hold the control information attached to the data at each layer of the model.
+\item <2-> The data portion at level \\ $N - 1$ carries the whole PDU (data and header and maybe trailer) from level N.
+\item <3-> For level $N-1$, the whole PDU coming from level $N$ is treated as one integral unit.
+ \end{itemize}
+  }
+
+
+\frame{\frametitle{Data Encapsulation}
+\fig{0.55}{network_encapsulation}
+  }
+
+
+\frame{\frametitle{Data Encapsulation}
+\framesubtitle{PDU and layer Addressing}
+\fig{0.7}{network_pduaddress}
+  }
+
+\frame{\frametitle{Data Segmentation}
+\begin{itemize} 
+\Large
+\item <1-> Segment the data stream into small bounded size blocks or PDUs.
+\item <2-> the network may accept data blocks only up to a certain size (53 octets for atm, 1526 octets for Ethernet)
+\item <3-> Advantages \\
+$\circ$ Efficient error control with PDU size
+$\circ$ Fewer bits retransmitted in the event of failure
+$\circ$ Better access to shared transmission facilities, with shorter delay
+$\circ$ Smaller buffers at receiver stations
+ \end{itemize}
+  }
+
+
+\frame{\frametitle{Data Segmentation}
+\begin{itemize} 
+\Large
+\item <1-> Disadvantages \\
+$\circ$ Larger overhead with smaller PDU size \\
+$\circ$ More interrupts as PDUs announce their arrival \\
+$\circ$ More time spent to process many smaller PDUs \\
+$\circ$ Reassembly is an issue to be addressed \\
+ \end{itemize}
+  }
+
+
+\frame{\frametitle{OSI Example}
+\Large
+Imagine that you are on DLSU website and you have clicked a link on the page. By doing so you have just made a request of the web server to send you a document (most web pages exist as documents with an .html extension). This document will be sent to your computer which will use the proper application (your Internet browser) to display the document so you can view it.
+ }
+
+
+\frame{\frametitle{Example}
+ 
+ \fig{0.8}{network_osiex}
+ }
+
+
+
+\frame{\frametitle{Web server End}
+\framesubtitle{SOURCE}
+\begin{itemize} 
+\Large
+\item <1-> Layer 7 obtains the data in the form of the HTML document.
+\item <2-> Layer 6 adds information about the formatting.
+\item <3-> Layer 5 adds information required to create a session between the web server and the web browser on the laptop.
+\end{itemize}
+ }
+
+\frame{\frametitle{Web server End}
+\framesubtitle{SOURCE}
+\begin{itemize} 
+\Large
+\item <1-> Layer 4 adds the transport protocol and the source and destination port numbers, in this case TCP (it's a unicast) and port 80 (HTTP).
+\item <2-> Layer 3 adds the source and destination IP addresses, in this case a source of 192.168.5.1 and a destination of 192.168.5.2.
+\end{itemize}
+ }
+
+
+\frame{\frametitle{Web server end}
+\framesubtitle{SOURCE}
+\begin{itemize} 
+\Large
+\item <1-> Layer 2 learns the destination MAC address and adds the source and destination MAC addresses, in this case, a source of 5-5-5-5-5-5 and destination of 6-6-6-6-6-6.
+\item <2-> Layer 1 converts the entire package into bits and sends it across the
+network to the laptop.
+\end{itemize}
+ }
+
+
+\frame{\frametitle{Laptop end}
+\framesubtitle{DESTINATION}
+\begin{itemize} 
+\Large
+\item <1-> Layer 1 receives the bits in electrical format, converts them to be read by layer 2, and hands them to layer 2.
+\item <2-> Layer 2 examines the destination MAC address to see whether it is addressed to it, sees the MAC address of 6-6-6-6-6 (its own), drops that part of the transmission, and hands the remaining data to layer 3.
+\item <3-> Layer 3 examines the destination IP address to ensure that it is its own (192. 168.5.2), drops that part, and hands the rest of the package to layer 4.
+\end{itemize}
+ }
+
+
+\frame{\frametitle{Laptop end}
+\framesubtitle{DESTINATION}
+\begin{itemize} 
+\Large
+\item <1-> Layer 4 examines the destination port number (port 80), alerts the browser that HTTP data is coming in, drops that part, and hands the rest of the package to layer 5.
+\item <2-> Layer 5 uses the information that was placed on this layer by the web server to create the session between the web server and the web browser and then hands the rest of the information to layer 6.
+\end{itemize}
+ }
+
+
+\frame{\frametitle{Laptop end}
+\framesubtitle{DESTINATION}
+\begin{itemize} 
+\Large
+\item <1-> Layer 6 performs any format translation that may be required and hands the remaining data (the HTML document) to layer 7.
+\item <2-> The layer 7 application (the web browser) receives the HTML document and opens the document in the browser window.
+\end{itemize}
+ }
+ 
+
+ \frame{\frametitle{\HandRight Understand}
+%\Large
+\qc{Which of the following is not an advantage of networking reference models?}
+{{A. They encourage standardization by defining what functions are performed at particular layers of the model. }}
+{B. They prevent changes in one layer from causing a need for changes in other layers, speeding development. }
+{\ans{2}{C. They ensure that networks perform better.}}
+{D. They encourage vendors to build on each other's developments through use of a common framework.}
+{E. None of the above}
+ }
+
+
+ \frame{\frametitle{\HandRight Understand}
+\Large
+\qc{Which layer of the OSI model is responsible for coordinating the exchanges of information between the layer 7 applications or services that are in use?}
+{{A. Application}}
+{\ans{2}{B. Session} }
+{C. Data-Link}
+{D. Physical}
+{E. None of the above}
+ }
+
+
+ \frame{\frametitle{\HandRight Understand}
+\Large
+\qc{What is the information that is used on layer 3 of the OSI model?}
+{{A. A bit pattern}}
+{B. MAC addresses} 
+{\ans{2}{C. IP addresses}}
+{D. Port numbers}
+{E. All of the above}
+ }
+
+
+\begin{frame}
+\frametitle{\HandPencilLeft Reading Assignment}
+\begin{itemize}
+\huge
+\item  <1-> Illustrate and Contrast OSI and TCP/IP models. 
+ \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{OSI and TCP/IP models Comparison}
+\fig{0.4}{network_ositcpip}
+\end{frame}
+
+
+\frame{\frametitle{ OSI and TCP/IP Model}
+\begin{itemize} 
+\Large
+\item <1-> There are seven layers in the OSI model and four in the TCP/IP model.
+\item <2-> The top three layers of the OSI model (Application, Presentation and Session) map to the Application layer of the TCP/IP model.
+\item <3-> The bottom two layers of the OSI model (Data-Link and Physical) map to the Network Access layer of the TCP/IP model.
+\end{itemize}
+  }
+
+\frame{\frametitle{ OSI vs. TCP/IP Model}
+\begin{itemize} 
+\Large
+\item <1-> In the OSI model, it was envisioned that the Session layer would handle the establishment and management of the communication session between the application or service being used.
+\item <2-> In TCP/IP, those functions are performed by the TCP /IP protocol itself at a different layer, the Transport layer.
+\end{itemize}
+  }
+
+
+\frame{\frametitle{ OSI vs. TCP/IP Model}
+\begin{itemize} 
+\Large
+\item <1-> OSI model envisioned the host devices as deaf, dumb, and blind bystanders to the networking process, not participants (dumb terminal).
+\item <2-> In TCP/IP, the hosts participate and take part in functions such as end-to-end verification, routing,
+and network control (intelligent role players)
+\end{itemize}
+  }
+
+
+\frame{\frametitle{OSI vs. TCP/IP Model}
+\begin{itemize} 
+\Large
+\item <1-> When TCP/IP was developed, it was decided that the division of the bottom layer into Data-Link and Physical layers was unnecessary.
+\item <2-> Thus their functions are combined in the Network Access layer of the TCP/IP model.
+\end{itemize}
+  }
+
+
+\frame{\frametitle{TCP/IP Model}
+\begin{itemize} 
+\Large
+\item <1-> Developed by US Defense Advanced Research Project Agency (DARPA) for ARPANET packet switched network.
+\item <2-> generally referred to as the TCP/IP protocol suite, which consists of a large collection of protocols.
+\item <3-> predates the OSI reference model.
+\end{itemize}
+  }
+
+\frame{\frametitle{TCP/IP Model}
+\begin{itemize} 
+\Large
+\item <1-> Transmission Control Protocol (TCP) \\ is the primary transport layer (layer 4) protocol, and is responsible for connection establishment and management and reliable data transport between software processes on devices.
+\item <2-> Internet Protocol (IP) \\ is the primary OSI network layer (layer 3) protocol that provides addressing, datagram routing and other functions in an internetwork. 
+\end{itemize}
+  }
+
+
+\frame{\frametitle{TCP/IP Model}
+\fig{0.5}{network_tcpip}
+  }
+
+
+\frame{\frametitle{TCP/IP Layers}
+\begin{itemize} 
+\Large
+\item <1-> Application (Process) Layer
+\item <2-> Host-to-host (Transport) Layer
+\item <3-> Internet Layer
+\item <4-> Network Access/Interface Layer
+\end{itemize}
+  }
+
+\frame{\frametitle{\huge TCP/IP Model Communication Process}
+\fig{0.5}{network_tcpipcomm}
+  }
+
+
+\frame{\frametitle{\huge Application (Process) layer}
+\begin{itemize} 
+\Large
+\item <1-> corresponds to the OSI's Application, Presentation, and Session layers 
+\item <2-> defines protocols for node-to-node application communication
+\item <3->  controls user-interface specifications.
+\end{itemize}
+  }
+
+\frame{\frametitle{\huge Application layer services}
+\fig{0.5}{network_application4}
+  }
+
+\frame{\frametitle{\huge Application layer services}
+\fig{0.5}{network_farm}
+  }
+
+
+\frame{\frametitle{\HandRightUp \huge Recall}
+\fig{0.5}{network_serverclient2}
+  }
+
+
+\frame{\frametitle{ \huge Telnet / Terminal Emulation }
+\begin{itemize} 
+\Large
+\item <1-> allows a user on a remote client machine, called the Telnet client, to access the resources of another machine, the Telnet server.
+\end{itemize}
+\fig{0.35}{network_serverclient3}
+  }
+
+
+\frame{\frametitle{ \huge Telnet / Terminal Emulation }
+\fig{0.5}{network_telnet}
+  }
+
+
+
+
+\frame{\frametitle{ \huge Domain Name Service}
+\framesubtitle{DNS}
+\begin{itemize} 
+\Large
+\item <1-> resolves hostnames-specifically, Internet names, such as www.dlsu.edu.ph
+\end{itemize}
+\fig{0.35}{network_dns}
+  }
+
+
+
+\frame{\frametitle{ \huge HTTP}
+\framesubtitle{Hypertext transfer protocol}
+\begin{itemize} 
+\Large
+\item <1-> rules governing the delivery of web pages to the client  
+\end{itemize}
+\fig{0.35}{network_http}
+  }
+
+
+\frame{\frametitle{\HandRightUp \huge Understand}
+\begin{itemize} 
+\Large
+\item <1-> Differentiate HTTP and HTML?
+\item <2-> HTML:  hypertext markup language \\
+Definitions of tags that are added to Web documents to control their appearance.
+\item <3-> HTTP:  hypertext transfer protocol \\
+The rules governing the conversation between a Web client and a Web server. 
+\end{itemize}
+  }
+
+
+
+\frame{\frametitle{ \huge POP and SMTP}
+\framesubtitle{Post Office and Simple Mail Transport Protocols}
+\fig{0.5}{network_popsmtp}
+  }
+
+
+\frame{\frametitle{ \huge Server Message Block (SMB) Protocol}
+\begin{itemize} 
+\Large
+\item <1-> supports file sharing in Microsoft-based networks   
+\end{itemize}
+\fig{0.45}{network_smb}
+  }
+
+
+\frame{\frametitle{ \huge Gnutella Protocol}
+\begin{itemize} 
+\Large
+\item <1-> supports P2P services 
+\end{itemize}
+\fig{0.45}{network_gnutella}
+  }
+
+
+\frame{\frametitle{\huge Host-to-host (Transport) Layer}
+\begin{itemize} 
+\Large
+\item <1-> parallels the functions of the OSI's Transport layer 
+\item <2-> define protocols for setting up the level of transmission service for applications.
+\item <3->  concerned with \\
+$\circ$ reliable end-to-end communication \\
+$\circ$ error-free delivery of data \\
+$\circ$ packet sequencing
+\end{itemize}
+  }
+
+\frame{\frametitle{\huge Transport Layer Role}
+\fig{0.5}{network_transport3}
+  }
+
+\frame{\frametitle{\huge Transport Layer Functions}
+\begin{itemize} 
+\Large
+\item <1-> Enables multiple applications to communicate over the network at the same time on a single device 
+\item <2-> Ensures that, if required, all the data is received reliably and in order by the correct application
+\item <3-> Employs error handling mechanisms 
+\item <4-> UDP- User Datagram protocol- an exchange of data w/o acknowledgment, sure delivery
+\end{itemize}
+  }
+
+\frame{\frametitle{\huge Transport Layer Purpose}
+\begin{itemize} 
+\Large
+\item  Segmenting data \& managing each piece - \\ data must be prepared to be sent across the media in manageable pieces.
+\item <2-> Tracking the individual communication between applications on the source and destination hosts - \\ 
+ maintains the multiple communication streams between these applications.
+\end{itemize}
+  }
+
+
+\frame{\frametitle{\huge Transport Layer Purpose}
+\begin{itemize} 
+\Large
+\item <1-> Reassembling the segments into streams of application data - \\ 
+At the receiving host, each piece of data will be reconstructed and directed to the appropriate application. 
+\item <2-> Identifying the different applications- \\ 
+assigns each application an identifier; the TCP/IP protocols call this identifier a \underline{port number}.
+ \end{itemize}
+  }
+
+
+\frame{\frametitle{\huge Transport Layer Protocols}
+\begin{itemize} 
+\Large
+\item <1-> Transmission Control Protocol (TCP)   \\ 
+  $\circ$ Connection-oriented \\
+  $\circ$ Guaranteed Delivery \\
+  $\circ$ Supports Flow Control and Error control \\
+\item <2-> User Datagram Protocol (UDP)  \\ 
+$\circ$ Connectionless-oriented \\
+$\circ$ Nonguaranteed Delivery \\
+$\circ$ No Flow Control and Error control \\
+ \end{itemize}
+  }
+
+
+\frame{\frametitle{\huge Internet Layer}
+\begin{itemize} 
+\Large
+\item <1-> corresponds to the OSI's Network layer.  
+\item <2-> designates the protocols relating to the logical transmission of packets over the entire network.
+\item <3->  concerned with \\
+$\circ$ logical addressing, i.e. IP (Internet Protocol) address \\
+$\circ$ routing of packets among multiple networks
+\end{itemize}
+  }
+
+
+\frame{\frametitle{\huge Internet Layer}
+\fig{0.5}{network_ip}
+  }
+
+
+\frame{\frametitle{\huge Internet Protocol (IP)}
+\fig{0.5}{network_ip2}
+  }
+
+
+\frame{\frametitle{\huge Internet Protocol (IP)}
+\framesubtitle{Connectionless}
+\fig{0.5}{network_ip3}
+  }
+
+\frame{\frametitle{\huge Internet Protocol (IP)}
+\framesubtitle{Unreliable Protocol}
+\fig{0.5}{network_ip4}
+  }
+
+
+\frame{\frametitle{\huge Internet Protocol (IP)}
+\framesubtitle{Media Independent}
+\fig{0.5}{network_ip5}
+  }
+
+\frame{\frametitle{\huge Internet Protocol (IP)}
+\framesubtitle{- Segments are encapsulated as packets}
+\fig{0.5}{network_ip6}
+  }
+
+\frame{\frametitle{\huge Network Access Layer}
+\begin{itemize} 
+\Large
+\item <1-> interface to the local network
+\item <2-> concerned with the exchange of data between an end system (server, workstation, etc.) and the network to which it is attached.
+\item <3-> concerned with \\
+$\circ$ hardware addressing \\
+$\circ$ protocols for the physical transmission of data
+\end{itemize}
+  }
+
+
+\frame{\frametitle{\huge Network Access Layer}
+\begin{itemize} 
+\Large
+\item <1-> the source and destination physical addresses are put on the front of the package in a part called the \underline{header}.  
+\item <2-> Information used to perform a frame check sequence on the message is placed at the back of the package in a section called the \underline{trailer}.
+\item <3-> the package is converted to ones and zeros in the format required by the physical medium in use. 
+\end{itemize}
+  }
+
+
+
+
+
+\frame{\frametitle{TCP/IP Data Encapsulation}
+\fig{0.5}{network_pdu}
+  }
+
+
+\frame{\frametitle{TCP/IP Data Encapsulation}
+\begin{itemize} 
+\Large
+\item <1-> Application layer adds any required information concerning the presentation and formatting of the data to the header.
+\item <2-> Transport layer adds port number information to the data that was handed down from the Application layer.
+\item <3-> Internet layer adds the required logical address information to the segment.
+
+\end{itemize}
+  }
+
+\frame{\frametitle{TCP/IP Data Encapsulation}
+\begin{itemize} 
+\Large
+\item <1-> Network Access layer adds physical address information in the form of a frame header.
+\item <2-> Network Access layer also adds a frame trailer which contains information that can be used to check the integrity of the data, called \underline{frame check sequence (FCS)}.
+\item <3-> Integrity means that the data has not changed even 1 bit.
+\end{itemize}
+  }
+
+
+\frame{\frametitle{TCP/IP Data Encapsulation}
+\begin{itemize} 
+\Large
+\item <1-> Network adaptor converts the information into a series of ones and zeros.
+\item <2-> At the beginning of the frame is a series of ones and zeros that are designed to allow the receiving device to lock on to or synch up with the signal.
+\item <3-> Once the receiving device has synched up with the frame, it will start reading.
+\end{itemize}
+  }
+  
+
+\frame{\frametitle{Protocol Operation of Sending and Receiving}
+\fig{0.5}{network_encapsulation2}
+  }
+
+
+
+ \frame{\frametitle{\HandRight Readings}
+\Large
+\qc{In what year was it mandated that all computers connected to the ARPANET use TCP/IP?}
+{{A. 1969}}
+{B. 1974} 
+{C. 1979}
+{\ans{2}{D. 1983}}
+{E. None of the above}
+ }
+
+
+
+\frame{\frametitle{TCP/IP Protocol Suite}
+\fig{0.5}{network_tcpipsuite}
+  }
+
+
+
+\frame{\frametitle{Application Protocols}
+\Large
+\begin{itemize} 
+\item Telnet (Terminal emulation) \\ allows a user on a remote client machine, called the Telnet client, to access the resources of another machine, the Telnet server. 
+\item File Transfer Protocol (FTP) \\ the protocol for transferring files
+\item Trivial File Transfer Protocol (TFTP) \\ stripped-down, stock version of FTP; TFTP has no directory-browsing abilities; it can do nothing but send and receive files.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Application Protocols}
+\Large
+\begin{itemize} 
+\item Network File System (NFS) \\ allows two different types of file systems to interoperate. Ex. NT and Unix file systems
+\item Simple Mail Transfer Protocol (SMTP) \\ answering our ubiquitous call to email, uses a spooled, or queued, method of mail delivery.
+\item Line Printer Daemon (LPD) \\ designed for printer sharing
+\end{itemize}
+}
+
+
+\frame{\frametitle{Application Protocols}
+\Large
+\begin{itemize} 
+\item X Window \\ defines a protocol for writing client/server applications based on a graphical user interface (GUI)
+\item Simple Network Management Protocol (SNMP) \\ collects and manipulates valuable network information. It gathers data by polling the devices on the network from a management station at fixed or random intervals, requiring them to disclose certain information.
+\end{itemize}
+}
+
+
+\frame{\frametitle{Application Protocols}
+\Large
+\begin{itemize} 
+\item Domain Name Service (DNS) \\ resolves hostnames—specifically, Internet names, such as www.dlsu.edu.ph.
+\item Dynamic Host Configuration Protocol (DHCP)/Bootstrap Protocol (BootP) \\ assigns IP addresses to hosts. It allows easier administration and works well in small to even very large network environments.
+\end{itemize}
+}
+
+
+
+\frame{\frametitle{Host-to-host (Transport) Protocols}
+\Large
+\begin{itemize} 
+\item Transmission Control Protocol (TCP) \\  
+a full-duplex, connection-oriented, reliable, and accurate protocol, but costly in terms of network overhead.
+\item User Datagram Protocol (UDP)  \\   a minimalist protocol mechanism with no handshaking dialogues, thus exposes any unreliability of the underlying network protocol to the user's program. There is no guarantee of delivery, ordering or duplicate protection.
+\end{itemize}
+}
+
+
+
+\frame{\frametitle{Internet Protocols}
+\Large
+\begin{itemize} 
+\item Internet Control Message Protocol (ICMP) \\  
+a management protocol and messaging service provider for IP. Its messages are carried as IP datagrams.
+\item Address Resolution Protocol (ARP) \\   finds the hardware address of a host from a known IP address.
+
+\end{itemize}
+}
+
+
+\frame{\frametitle{Internet Protocols}
+\Large
+\begin{itemize} 
+\item Reverse Address Resolution Protocol (RARP) \\ discovers the identity of the IP address for diskless machines by sending out a packet that includes its MAC address and a request for the IP address assigned to that MAC address.
+\item Proxy Address Resolution Protocol (Proxy ARP) \\   help machines on a subnet reach remote subnets without configuring routing or even a default gateway.
+ 
+\end{itemize}
+}
+
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item De facto standard \\ one that becomes the standard simply by being the method that all parties gradually choose to use over a period of time, without a formal adoption process.
+\item Default gateway \\ This is the IP address of the nearest router in the network.
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item IP address \\  a number in a specific format that is used to identify a computer.
+\item ISO (International Organization for Standardization) \\ is the world's largest developer of voluntary International Standards. International Standards give state of the art specifications for products, services and good practice, helping to make industry more efficient and effective.\\
+ Note: ISO is derived from the Greek isos, meaning equal. 
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Local vs. Remote \\  If the source and destination hosts are on the same network, the destination device is considered to be on the local network.\\
+ If the two computers are on different networks, the destination device is considered to be on a remote network.
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Peripherals \\ are any devices that operate in conjunction with the computer yet reside outside the computer's box. Ex. display, mouse, keyboard, printer, camera, speakers, and scanners.
+\item Resource \\ refers to anything that a user on one computer may want to access on a different computer. Ex. files, folders, printers, and scanners.
+\item Telecommuting \\ working from another physical location, usually from home.
+\end{itemize}
+}
+
+\frame{\frametitle{Other Terms}
+\begin{itemize} 
+\item Standard vs. Proprietary \\  Proprietary refers to any process or way of doing something that works only on a single vendor's equipment while standard any process that the industry has agreed upon.
+\end{itemize}
+}
+
+ \frame{\frametitle{\HandRight Understand}
+\begin{itemize} 
+\Large
+\item <1-> How do you ensure that products from different manufacturers can work together as expected?
+\item <2-> Answer: \\ Using Standards which provide guidelines to manufacturers, vendors, government agencies, and other service providers to ensure the kind of interconnectivity necessary in today's marketplace and in international communications.
+\end{itemize}
+ }
+
+\begin{frame}
+\frametitle{OSI Model and Networking Devices}
+\fig{0.5}{network_devices}
+\end{frame}
+
+\frame{\frametitle{\HandRightUp Networking and Internetworking Devices}
+ \fig{0.5}{network_devices2}
+  }
+
+\frame{\frametitle{\HandRightUp Networking and Internetworking Devices}
+\framesubtitle{Examples}
+ \fig{0.4}{network_devices3}
+  }
+
+
+\frame{\frametitle{Repeaters}
+\Large
+\begin{itemize} 
+\item <1-> a physical layer device used to interconnect the media segments of an extended network.
+\item <2-> does not actually connect two LANs; it connects two segments of the same LAN.
+\end{itemize}
+\fig{0.4}{network_repeater}
+  }
+
+
+\frame{\frametitle{Repeaters}
+\Large
+\begin{itemize} 
+\item <1-> repeaters regenerate signals corrupted primarily due to distance effects
+\end{itemize}
+\fig{0.4}{network_repeater2}
+\begin{itemize} 
+\item <2-> A repeater forwards every frame; it has no filtering capability.
+\end{itemize}
+  }
+
+
+
+\frame{\frametitle{Hub}
+\framesubtitle{Multiport repeater}
+\Large
+\begin{itemize} 
+\item <1-> a physical-layer device that connects multiple user stations, each via a dedicated cable
+\item <2-> used to create a physical star network while maintaining the logical bus or ring configuration of the LAN
+\end{itemize}
+\fig{0.04}{network_hub}
+  }
+
+
+\frame{\frametitle{Bridge}
+\Large
+\begin{itemize} 
+\item <1-> A physical and data-link layer device that links one LAN segment to others
+\item <2-> Read all frames transmitted on one LAN and accept those address to any station on the other LAN
+\item <3-> Using MAC protocol for second LAN, retransmit each frame
+\end{itemize}
+   }
+
+\begin{frame}
+\frametitle{References}
+\Large
+TEXTBOOK: 
+\begin{itemize}
+\item  <1-> Data Communications and Networking, Behrouz Forouzan, 4th Edition, McGraw-Hill, 2007
+ \end{itemize}
+\fig{0.3}{forouzan2007}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> Data and Computer Communications, William Stallings, 2007
+ \end{itemize}
+\fig{0.3}{stallings2007}
+\end{frame}
+ 
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> TCP/IP Protocol Suite, Behrouz Forouzan, 4th edition, 2010
+ \end{itemize}
+\fig{0.3}{forouzantcpip}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> CISCO Networking Essentials, Troy McMillan, 2012
+ \end{itemize}
+\fig{0.3}{mcmillan2012}
+\end{frame}
+
+\begin{frame}
+\frametitle{References}
+\Large
+SECONDARY SOURCE: 
+\begin{itemize}
+\item  <1-> Network Fundamentals, Cisco Networking Academy, 2007
+ \end{itemize}
+\fig{0.4}{cisco}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Thank you for your attention!}
+\fig{0.6}{mthesis}
+\end{frame}
+
+\end{document}
